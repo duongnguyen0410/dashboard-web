@@ -15,7 +15,7 @@ body {
 	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.10);
 }
 
-.login-section #title {
+.registration-form #title {
 	color: #0366FF;
 	font-family: Inter;
 	font-size: 30px;
@@ -26,7 +26,7 @@ body {
 	margin-left: 80px;
 }
 
-.login-section #description {
+.registration-form #description {
 	color: #545454;
 	font-family: Poppins;
 	font-size: 14px;
@@ -35,28 +35,36 @@ body {
 	line-height: normal;
 	margin-left: 80px;
 	margin-top: 12px;
-	margin-bottom: 33px;
+	margin-bottom: 28px;
 }
 
-.login-section .input {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 400px;
+.input-label{
+	display: inline-block;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	color: #0C0C0C;
+	font-family: Poppins;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;	
+}
+
+.input {
+    width: 80%;
 	height: 40px;
 	flex-shrink: 0;
 	border-radius: 8px;
 	border: 2px solid hsl(240, 2%, 90%);
 	background: #FFF;
-	margin-left: 80px;
-	margin-top: 16px;
 	color: #0C0C0C;
-	font-family: Inter;
+	font-family: Poppins;
 	font-size: 14px;
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
 	padding-left: 10px;
+	margin-bottom: 10px;
 }
 
 input::-ms-reveal,
@@ -64,38 +72,65 @@ input::-ms-clear {
 	display: none;
 }
 
-.login-section .input:focus {
+.registration-form .input:focus {
 	outline: none;
 	border: 2px solid #0366FF;
 }
 
-#forgot-password {
-	margin-right: 100px;
-	margin-top: 10px;
-	text-align: right;
+#input{
+	margin-left: 80px;
 }
 
-#forgot-password #text {
-	text-decoration: none;
-	font-family: Poppins;
-	font-size: 12px;
-	margin: 0;
-	color: hsl(2, 100%, 75%);
-	cursor: pointer;
+#input #name{
+    display: flex;
 }
 
-#forgot-password #text:hover {
-	text-decoration: underline;
+#input #name #left{
+    width: 50%;
+}
+
+#input #name #firstName{
+	width: 90%;
+}
+
+#input #name #lastName{
+	width: 90%;
+}
+
+#input #name #right{
+    width: 50%;
+    margin-right: 70px;
+}
+
+#input #email-dob{
+	display: flex;
+}
+
+#input #email-dob #left{
+	width: 70%;
+}
+
+#input #email-dob #left #email{
+	width: 91.5%;
+}
+
+#input #email-dob #right{
+	width: 43%;
+	margin-right: 93px;
+}
+
+#input #email-dob #right #dateOfBirth{
+	width: 100%;
 }
 
 #btn-div {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 30px;
+	margin-top: 50px;
 }
 
-#login-btn {
+#register-btn {
 	position: relative;
 	width: 423.6px;
 	height: 40px;
@@ -113,7 +148,7 @@ input::-ms-clear {
 	cursor: pointer;
 }
 
-#login-btn:hover {
+#register-btn:hover {
 	border: solid hsl(216, 100%, 56%);
 	background-color: hsl(216, 100%, 56%);
 }
@@ -149,7 +184,7 @@ input::-ms-clear {
 	}
   }
 
-.sign-up-label {
+.log-in-label {
 	margin: 0;
 	font-size: 13px;
 	color: #747474;
@@ -158,7 +193,7 @@ input::-ms-clear {
 	margin-top: 10px;
 }
 
-.sign-up-link {
+.log-in-link {
 	margin-left: 1px;
 	font-size: 13px;
 	text-decoration: none;
@@ -168,44 +203,6 @@ input::-ms-clear {
 	font-family: Poppins;
 }
 
-.sign-up-link:hover {
+.log-in-link:hover {
 	text-decoration: underline;
-}
-
-#continue {
-	padding-left: 80px;
-	padding-right: 80px;
-	margin: 47px 0 32px 0;
-	display: flex;
-	align-items: center;
-	gap: 6.213px;
-	align-self: stretch;
-}
-
-.line {
-	height: 0.194px;
-	flex: 1 0 0;
-	opacity: 0.25;
-	background: var(--T, #313131);
-}
-
-#continue-text {
-	color: var(--T, #313131);
-	opacity: 0.5;
-	font-family: Inter;
-	font-size: 13px;
-	font-style: normal;
-	font-weight: 400;
-	line-height: normal;
-}
-
-#login-options {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-#login-options .option {
-	margin: 0 21px;
-	cursor: pointer;
 }

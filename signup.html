@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="signup.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="registration-form">
+            <form>
+                <div class="form-group">
+                    <div id="title">Sign up</div>
+                </div>
+                <div class="form-group">
+                    <div id="description">Create your account</div>
+                </div>
+
+                <div id="input">
+                    <div id="name">
+                        <div id="left">
+                            <div class="form-group">
+                                <label class="input-label">First Name</label>
+                                <input class="input" id="firstName" type="text" required tabindex="1">
+                            </div>
+                        </div>
+                        <div id="right">
+                            <div class="form-group">
+                                <label class="input-label">Last Name</label>
+                                <input class="input" id="lastName" type="text" required tabindex="2">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="email-dob">
+                        <div id="left">
+                            <div class="form-group">
+                                <label class="input-label">Email</label><br>
+                                <input class="input" id="email" type="email" required tabindex="3">
+                            </div>
+                        </div>
+                        <div id="right">
+                            <div class="form-group">
+                                <label class="input-label">Date of Birth</label><br>
+                                <input class="input" id="dateOfBirth" type="text" onfocus="(this.type='date')"
+                                    onblur="(this.type='text')" required tabindex="4">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="input-label">Password</label><br>
+                        <input class="input" id="password" type="password" required tabindex="5">
+                    </div>
+                    <div class="form-group">
+                        <label class="input-label">Confirm Password</label><br>
+                        <input class="input" id="confirmPassword" type="password" required tabindex="6">
+                    </div>
+                </div>
+                <div class="form-group" id="btn-div">
+                    <button id="register-btn" class="button" type="submit" tabindex="7">
+                        <span class="button-text">Register</span>
+                    </button>
+                </div>
+                <p class="log-in-label">
+                    Already have account? <span class="log-in-link">Log in</span>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="signup.js"></script>
+</body>
+
+</html>

@@ -20,55 +20,56 @@ const auth = getAuth(app);
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const loginButton = document.getElementById("login-btn");
-const btnDiv = document.getElementById("btn-div");
+const signUpLink = document.querySelector(".sign-up-link");
+const btn = document.querySelector(".button");
 
-function writeUserData(name, email, imageUrl) {
-    set(ref(database, 'users/' + userId), {
-        username: name,
-        email: email,
-        profile_picture: imageUrl
-    });
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function pushUserData(name, email, imageUrl) {
-    const usersRef = ref(database, 'users');
-    const newUserRef = push(usersRef);
-    set(newUserRef, {
-        username: name,
-        email: email,
-        profile_picture: imageUrl
-    });
+function validateInput(email, password){
+    if (
+        email.trim() === '' ||
+        password.trim() === ''
+    ) {
+        return false;
+    }
+    return true;
 }
 
-function login(email, password){
+async function login(email, password){
+
+    if (!validateInput(email, password)) {
+        console.log("All fields must be filled out.");
+        btn.classList.remove("button-loading");
+        return;
+    }
+
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log(userCredential.user.uid);
-        const user = userCredential.user;
+      .then(async (userCredential) => {
+        const uid = userCredential.user.uid;
+        console.log(`Login successfull with uid: ${uid}`);
+        await sleep(2000);
+        btn.classList.remove("button-loading");
+        
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        console.log(error.code);
+        console.log(error.message);
+        btn.classList.remove("button-loading");
       });
 }
 
-loginButton.addEventListener("click", function () {
+loginButton.addEventListener("click", async function(){
+
+    btn.classList.add("button-loading");
 
     const email = emailInput.value;
     const password = passwordInput.value;
 
-    if(email && password){
-        //window.location.href = '/dashboard.html';
-        login(email, password);
-    }
-    else{
-        if(email === ""){
-            console.log("Please enter your email");
-        }
-        if(password === ""){
-            console.log("Please enter your password");
-        }
-    }
-
-    //pushUserData('Duong Nguyen', 'nxduong410@gmail.com', 'image1');
+    await login(email, password);
 }); 
+
+signUpLink.addEventListener("click", function(){
+    window.location.href="/signup.html";
+})
