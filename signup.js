@@ -26,6 +26,7 @@ const confirmPasswordInput = document.getElementById("confirmPassword");
 const signUpForm = document.querySelector('.registration-form')
 const loginLink = document.querySelector(".log-in-label");
 const btn = document.querySelector(".button");
+const errorMessageElement = document.getElementById("error-message");
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -45,11 +46,15 @@ function validateInput(firstName, lastName, email, dob, password, confirmPasswor
     return true;
 }
 
-async function signUp(email, password){
-    try{
+async function signUp(email, password) {
+    try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         return userCredential.user.uid;
-    } catch(error){
+    } catch (error) {
+        if (error.code = "auth/email-already-in-use") {
+            errorMessageElement.innerText = "Email already existed.";
+            errorMessageElement.style.visibility = "visible";
+        }
         console.log(error.code);
         console.log(error.message);
         return "";
@@ -64,16 +69,16 @@ function pushUserData(uid, firstName, lastName, email, dob) {
         email: email,
         dob: dob,
     })
-    .then(async () => {
-        console.log("User data pushed to database successfully.");
-        await sleep(2000);
-        window.location.href = "/index.html";
-    })
-    .catch(async (error) => {
-        console.error("Error pushing user data to database: ", error);
-        await sleep(2000);
-        btn.classList.remove("button-loading");
-    });
+        .then(async () => {
+            console.log("User data pushed to database successfully.");
+            await sleep(2000);
+            window.location.href = "/index.html";
+        })
+        .catch(async (error) => {
+            console.error("Error pushing user data to database: ", error);
+            await sleep(2000);
+            btn.classList.remove("button-loading");
+        });
 }
 
 signUpForm.addEventListener("submit", async event => {
@@ -90,6 +95,8 @@ signUpForm.addEventListener("submit", async event => {
     const confirmPassword = confirmPasswordInput.value.trim();
 
     if (!validateInput(firstName, lastName, email, dob, password, confirmPassword)) {
+        errorMessageElement.innerText = "All fields must be filled out.";
+        errorMessageElement.style.visibility = "visible";
         console.log("All fields must be filled out.");
         await sleep(2000);
         btn.classList.remove("button-loading");
@@ -97,6 +104,8 @@ signUpForm.addEventListener("submit", async event => {
     }
 
     if (password !== confirmPassword) {
+        errorMessageElement.innerText = "Passwords do not match.";
+        errorMessageElement.style.visibility = "visible";
         console.log("Passwords do not match.");
         await sleep(2000);
         btn.classList.remove("button-loading");
@@ -104,7 +113,7 @@ signUpForm.addEventListener("submit", async event => {
     }
 
     const uid = await signUp(email, password);
-    if(uid){
+    if (uid) {
         console.log(`User created with UID: ${uid}`);
         pushUserData(uid, firstName, lastName, email, dob);
     } else {
@@ -114,6 +123,6 @@ signUpForm.addEventListener("submit", async event => {
     }
 })
 
-loginLink.addEventListener("click", function(){
-    window.location.href="/index.html";
+loginLink.addEventListener("click", function () {
+    window.location.href = "/index.html";
 })

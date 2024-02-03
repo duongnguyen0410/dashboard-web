@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js'
-import { getDatabase, ref, set , push} from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js';
+import { getDatabase, ref, set, push } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js';
 import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js';
 
 const firebaseConfig = {
@@ -22,12 +22,13 @@ const passwordInput = document.getElementById("password");
 const loginButton = document.getElementById("login-btn");
 const signUpLink = document.querySelector(".sign-up-link");
 const btn = document.querySelector(".button");
+const errorMessageElement = document.getElementById("error-message");
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function validateInput(email, password){
+function validateInput(email, password) {
     if (
         email.trim() === '' ||
         password.trim() === ''
@@ -37,30 +38,39 @@ function validateInput(email, password){
     return true;
 }
 
-async function login(email, password){
+async function login(email, password) {
 
     if (!validateInput(email, password)) {
+        errorMessageElement.innerText = "All fields must be filled out.";
+        errorMessageElement.style.visibility = "visible";
         console.log("All fields must be filled out.");
         btn.classList.remove("button-loading");
         return;
     }
 
     signInWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        const uid = userCredential.user.uid;
-        console.log(`Login successfull with uid: ${uid}`);
-        await sleep(2000);
-        btn.classList.remove("button-loading");
-        
-      })
-      .catch((error) => {
-        console.log(error.code);
-        console.log(error.message);
-        btn.classList.remove("button-loading");
-      });
+        .then(async (userCredential) => {
+            errorMessageElement.style.visibility = "hidden";
+            errorMessageElement.innerText = "";
+            const uid = userCredential.user.uid;
+            console.log(`Login successfull with uid: ${uid}`);
+            await sleep(2000);
+            window.location.href = "/dashboard.html";
+            btn.classList.remove("button-loading");
+
+        })
+        .catch((error) => {
+            if (error = "auth/invalid-credential") {
+                errorMessageElement.innerText = "Invalid email or password.";
+                errorMessageElement.style.visibility = "visible";
+            }
+            console.log(error.code);
+            console.log(error.message);
+            btn.classList.remove("button-loading");
+        });
 }
 
-loginButton.addEventListener("click", async function(){
+loginButton.addEventListener("click", async function () {
 
     btn.classList.add("button-loading");
 
@@ -68,8 +78,8 @@ loginButton.addEventListener("click", async function(){
     const password = passwordInput.value;
 
     await login(email, password);
-}); 
+});
 
-signUpLink.addEventListener("click", function(){
-    window.location.href="/signup.html";
+signUpLink.addEventListener("click", function () {
+    window.location.href = "/signup.html";
 })
