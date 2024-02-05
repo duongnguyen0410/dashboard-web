@@ -72,7 +72,7 @@ function pushUserData(uid, firstName, lastName, email, dob) {
         .then(async () => {
             console.log("User data pushed to database successfully.");
             await sleep(2000);
-            window.location.href = "/index.html";
+            window.location.href = "/login.html";
         })
         .catch(async (error) => {
             console.error("Error pushing user data to database: ", error);
@@ -124,5 +124,5 @@ signUpForm.addEventListener("submit", async event => {
 })
 
 loginLink.addEventListener("click", function () {
-    window.location.href = "/index.html";
+    window.location.href = "/login.html";
 })
